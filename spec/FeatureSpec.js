@@ -23,6 +23,12 @@ describe ("Feature test", function() {
       expect(airport.planes()).not.toContain(plane);
     });
 
+    it('blocks take off when weather is stormy', function(){
+      plane.land(airport);
+      spyOn(airport, 'isStormy').and.returnValue(true);
+      expect(function(){ plane.takeOff(airport); }).toThrowError('Can not take off during storm');
+      expect(airport.planes()).toContain(plane);
+    });
   });
 
 })
